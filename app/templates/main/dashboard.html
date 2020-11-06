@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block app_content %}
+
+    <h1>Dashboard</h1>
+    <h2>Welcome back! Here's your info.</h2>
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>{{ current_user.first_name }} {{ current_user.last_name }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ current_user.email }}</td>
+        </tr>
+        <tr>
+            <td>Password hash</td>
+            <td>{{ current_user.password_hash }}</td>
+        </tr>
+        <tr>
+            <td>Is your email verified?</td>
+            <td>{{ current_user.is_verified }}</td>
+        </tr>
+        <tr>
+            <td>Do you want to receive marketing emails?</td>
+            <td>{{ current_user.email_opt_in }}</td>
+        </tr>
+    </table>
+
+{% endblock %}

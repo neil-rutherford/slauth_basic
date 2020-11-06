@@ -1,0 +1,45 @@
+<h1>Welcome and Set-up</h1>
+<hr>
+<h2>Welcome</h2>
+
+<p>Welcome to Slauth Basic, a boilerplate login module that allows you to start Flask projects quickly. Included in this package:</p>
+<ul>
+    <li><b>Basic login functionality.</b> This module assumes that all users have equal permissions. It includes basic register-login-logout functionality.</li>
+    <li><b>Two pages.</b> One page requires a login and displays user-specific information. The other page does not require a login and displays a generic greeting.</li>
+    <li><b>Password reset.</b> This module sends asynchronous emails to allow users to reset their passwords.</li>
+    <li><b>Email verification and email opt-in.</b> This module verifies a user's email address and records their email preferences, which is useful for email marketing.</li>
+    <li><b>Error handling.</b> This module contains an error handler, which displays customizable error messages for 404s and 500s.</li>
+</ul>
+<p>We hope this makes your Flask project run smoothly. In this section, we talk about how to set up the app. In the next section, we talk about how to use and troubleshoot the app. In the third section, we discuss how to add on to the app. In the final section, we provide contact and licensing information.</p>
+
+<center><img src="slauth.png" width=25% height="auto"></center><br>
+<hr>
+<h2>Set-up</h2>
+<h3>Getting your environment ready</h3>
+<p>If you do not already have Python 3.x installed, you may find instructions for how to do so <a href="https://docs.python.org/3/using/index.html">here</a>.</p>
+<p>Open a terminal and navigate to the slauth_basic directory. In your terminal, run the following code:</p>
+<ol>
+    <li><code>python -m venv venv</code></li>
+    <li><b>For Windows:</b> <code>venv\Scripts\activate</code> || <b>For Unix/Linux:</b> <code>source venv/bin/activate</code></li>
+    <li><code>python -m pip install -r requirements.txt</code></li>
+    <li><code>flask db init</code></li>
+    <li><code>flask db migrate -m "Initial commit"</code></li>
+    <li><code>flask db upgrade</code></li>
+</ol>
+<p>By running this code, you have set up a virtual environment, downloaded all dependencies, and initialized your database.</p>
+
+<h3>Setting your configuration variables</h3>
+<p>In our next step, we will set configuration variables that allow the application to run smoothly. These instructions assume you are running this on your local machine. In your terminal, run the following code:</p>
+<ol>
+    <li><code>export SECRET_KEY={fill in your secret key here}</code> <br>(The secret key is used for encryption and can be thought of as your website's password.)<br></li>
+    <li><code>export SQLALCHEMY_DATABASE_URI={fill in your database uri here}</code> <br>(This defaults to SQLite. If you are okay using SQLite, skip this step. If you want to use a SQL server like MySQL or Postgres, enter the database URI here.)<br></li>
+    <li><code>export MAIL_SERVER={fill in your mail server here}</code> <br>(Look up your email provider's information. If you are using Gmail, for example, this would be "smtp.gmail.com".)<br></li>
+    <li><code>export MAIL_PORT={fill in your mail port here}</code> <br>(Look up your email provider's information. If you are using Gmail, for example, this would be 465 if you want SSL and 587 if you want TLS.)<br></li>
+    <li><code>export MAIL_USE_TLS={fill in your boolean preference here}</code> <br>(If you want to use <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">TLS</a>, set this to True. Otherwise, set it to False.)<br></li>
+    <li><code>export MAIL_USERNAME={fill in your email address here}</code> <br>(What is your email username? Example: "iloveslauth@gmail.com")<br></li>
+    <li><code>export MAIL_PASSWORD={fill in your password here}</code> <br>(What is your email password? Example: "password123")</li>
+</ol>
+<p>If you want to disable email functionality, leave all of the "MAIL_" variables blank.</p>
+
+<h3>Running the app</h3>
+<p>Running the app is as easy as entering <code>flask run</code> into your terminal. Your web app will run on localhost (http://127.0.0.1:5000/). To stop the app, go to the terminal and press Ctrl + C.</p>

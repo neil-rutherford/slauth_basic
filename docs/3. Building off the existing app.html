@@ -1,0 +1,48 @@
+<h1>Building off the existing app</h1>
+<hr>
+<p>Slauth was not designed to be a solution itself. Rather, it was supposed to take care of authentication so that developers could focus on developing other aspects of the app. Think of it like broth; it is nothing until you add the meat and potatoes. Therefore, it is important to talk here about how the app is structured and how you can build off of it.</p>
+
+<h2>Application structure</h2>
+<h3>Separation of concerns</h3>
+<p>Well-structured web apps separate logic between files and modules, typically with separation of concerns in mind. Everything in this app lives in the app folder, and within the app folder, there are separate folders called blueprints. These blueprints allow the application to be well-organized and portable.</p>
+<p>Within the slauth_basic/app folder, there are four folders:</p>
+<ul>
+    <li><b>slauth_basic/app/auth</b>, which handles the authentication logic;</li>
+    <li><b>slauth_basic/app/errors</b>, which handles custom error handling;</li>
+    <li><b>slauth_basic/app/main</b>, which handles the logic for the static pages;</li>
+    <li><b>slauth_basic/app/templates</b>, which is where the HTML files live.</li>
+</ul>
+<p>In the templates folder, there are more files:</p>
+<ul>
+    <li><b>slauth_basic/app/templates/auth</b>, which holds all the Auth HTML files;</li>
+    <li><b>slauth_basic/app/templates/email</b>, which holds all the email templates, in both TXT or HTML format;</li>
+    <li><b>slauth_basic/app/templates/errors</b>, which holds all of the custom error pages;</li>
+    <li><b>slauth_basic/app/templates/main</b>, which holds all of the Main HTML files.</li>
+</ul>
+<hr>
+<h2>Adding a new blueprint</h2>
+<p>Let's say that you want to hypothetically add a payments module. In accordance with the existing application structure, you would first create a new folder, <b>slauth_basic/app/payment</b>.</p>
+<p>Within the payments folder, you would need a minimum of two files: __init__.py and routes.py.</p>
+<h3>.../payment/__init__.py</h3>
+<p>This file makes the entire folder import-able and sets up the Flask blueprint so that it can integrate into the application as a whole. The file needs three lines of code:</p>
+<code>
+from flask import Blueprint<br/><br/>
+bp = Blueprint('payment', __name__)<br/><br/>
+from app.payment import routes</code>
+<h3>.../payment/routes.py</h3>
+<p>This file is responsible for defining your endpoints and essentially handles your application logic. To be able to use your payments blueprint, you must import it like so:</p>
+<code>from app.payment import bp</code>
+<p>Now you can use the "bp" decorator that you defined in the __init__.py file, like so: <code>@bp.route('/pay-now')</code>.</p>
+<h3>.../templates/payment</h3>
+<p>If/when you decide to render templates, they should come from the "templates/payment" folder. That way, it is very easy to organize and find the file you want. When using Flask's render_template function, you should call it like so: <code>return render_template('payment/your_template_name.html')</code>.</p>
+<p>Also be aware that this app uses Flask-Bootstrap and Jinja, meaning that each HTML file should start like so:</p>
+<code>&#123;&#37; extends "base.html" &#37;&#125;<br/><br/>
+&#123;&#37; block app_content &#37;&#125;<br/><br/>
+Your content here<br/><br/>
+&#123;&#37; endblock &#37;&#125;</code>
+<h3>app/__init__.py</h3>
+<p>Finally, you need to include the blueprint in your larger Flask app. You can do this by going to the app/__init__.py file and adding the following code to the "create_app()" function:</p>
+<code>
+from app.payment import bp as payment_bp<br/>
+app.register_blueprint(payment_bp)</code>
+<p>And viola! That's how to add a module to this Flask app.</p>

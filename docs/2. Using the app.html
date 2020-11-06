@@ -1,0 +1,15 @@
+<h1>Using the app</h1>
+<hr>
+<h2>Endpoints</h2>
+<h3>/ and /home</h3>
+<p>This page is not login restricted. It displays the lorem ipsum text as a placeholder.</p>
+<h3>/dashboard</h3>
+<p>This page is login restricted. It displays a welcome message and shows the user all of the information we have about them in the database.</p>
+<h3>/register</h3>
+<p>This is where new users go to register. After filling out the form, they are saved in the database as a user and are logged in.</p>
+<h3>/login</h3>
+<p>This is how existing users log in to the platform. If successful, they will be redirected to their dashboard. If unsuccessful, they will be prompted for their credentials again. Please note that Slauth Basic offers no brute-force protection.</p>
+<h3>/logout</h3>
+<p>This is how users log out. They are redirected to the home page.</p>
+<h3>/reset-password-request</h3>
+<p>This is how users reset their password. Entering their email address will cause an email to be sent to their email address. If email functionality is disabled, this will result in a 500 error.</p>
